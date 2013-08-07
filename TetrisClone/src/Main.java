@@ -22,11 +22,3 @@ public class Main {
 	}
 	
 }
-
-/*TODO:
-http://content.gpwiki.org/index.php/Tetris_Primer
-http://www.colinfahey.com/tetris/tetris.html
-http://pastebin.com/wh1TjGyf
-
-support held keys
-*/
