@@ -198,6 +198,8 @@ public class Game extends BasicGame {
 				if (shapeCanFall(tetrisGrid, current)) {
 					elapsedTime = 0;
 					++current.y;
+					ghost = new GhostShape(current);
+					hardDrop(ghost);
 				}
 			}
 			//hard drop
