@@ -24,7 +24,7 @@ public class Game extends BasicGame {
 	private int freeFallIterations;
 	private boolean heldThisTurn;
 	private boolean paused;
-	
+	private boolean lineClearedDelay;
 	public Game(String title) {
 		super(title);
 	}
@@ -94,7 +94,15 @@ public class Game extends BasicGame {
 				container.resume();
 			if (generated.isEmpty())
 				generated = Shape.generate();
-			if (current == null) {
+			if (lineClearedDelay) {
+				if (elapsedTime > 367 + (33 * (11 - level))) {
+					elapsedTime = 0;
+					lineClearedDelay = false;
+				}
+				else
+					elapsedTime += delta;
+			}
+			else if (current == null) {
 				try {
 					current = upcoming[0];
 					upcoming[0] = upcoming[1];
@@ -121,7 +129,7 @@ public class Game extends BasicGame {
 						tetrisGrid.embedShape(current);
 						current = null;
 						ghost = null;
-						updateLevel(tetrisGrid.clearLines(tetrisGrid.linesToClear()));
+						updateLevel(container, tetrisGrid.clearLines(tetrisGrid.linesToClear()));
 						freeFallIterations = 0;
 						heldThisTurn = false;
 					}
@@ -351,7 +359,7 @@ public class Game extends BasicGame {
 		score += ((21 + (3 * level)) - freeFallIterations);
 	}
 
-	public void updateLevel(int lines) {
+	public void updateLevel(GameContainer container, int lines) {
 		addScore();
 		linesCleared += lines;
 		if (linesCleared <= 0)
@@ -367,6 +375,9 @@ public class Game extends BasicGame {
 			level = 10;
 		}
 		max = (50 * (11 - level));
+		//wait for the time of one block drop if a line is cleared
+		if (lines > 0)
+			lineClearedDelay = true;
 	}
 
 	public void restart() {
