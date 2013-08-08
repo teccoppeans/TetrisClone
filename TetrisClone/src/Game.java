@@ -474,6 +474,7 @@ public class Game extends BasicGame {
 			while (current.getTop() < 2 && shapeCanFall(tetrisGrid, current)) {
 				++current.y;
 			}
+			elapsedTime = 0;
 			heldThisTurn = true;
 		}
 	}
