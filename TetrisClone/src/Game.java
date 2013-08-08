@@ -113,6 +113,8 @@ public class Game extends BasicGame {
 				while (current.getTop() < 2 && shapeCanFall(tetrisGrid, current)) {
 					++current.y;
 				}
+				ghost = new GhostShape(current);
+				hardDrop(ghost);
 			}
 			else {
 				if (elapsedTime > max) {
@@ -402,13 +404,18 @@ public class Game extends BasicGame {
 			}
 		}
 		hold = null;
-		ghost = new GhostShape(current);
 		score = 0;
 		level = 1;
 		linesCleared = 0;
 		freeFallIterations = 0;
 		max = (50 * (11 - level));
 		heldThisTurn = false;
+		elapsedTime = 0;
+		while (current.getTop() < 2 && shapeCanFall(tetrisGrid, current)) {
+			++current.y;
+		}
+		ghost = new GhostShape(current);
+		hardDrop(ghost);
 	}
 
 	public void wallKickRotateCW() {
