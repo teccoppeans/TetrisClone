@@ -55,6 +55,7 @@ public abstract class Shape {
 		Shape.game = game;
 	}
 
+	//draw shape to screen
 	public void draw() {
 		for (int i = 0; i < 4; ++i) {
 			for (int j = 0; j < 4; j++) {
@@ -67,6 +68,7 @@ public abstract class Shape {
 		}
 	}
 	
+	//clockwise rotation
 	public void rotateCW() {
 		++rotation;
 		rotation = rotation % 4;
@@ -87,6 +89,7 @@ public abstract class Shape {
     	shiftBlocksUpLeft();
 	}
 	
+	//adjusts blocks
 	private void shiftBlocksUpLeft() {
 		if (!(this instanceof IShape || this instanceof OShape))
 		switch (rotation) {
@@ -104,27 +107,22 @@ public abstract class Shape {
 			break;
 		}
 	}
-
+	
+	//counterclockwise rotation
 	public void rotateCCW() {
 		for (int i = 0; i < 3; ++i)
 			rotateCW();
 	}
 	
 
-
+	//resets the position and rotation of a shape to above the grid
 	public void reset() {
 		//reset rotation
 		while (rotation > 0)
 		{
-			rotateCCW();
-			rotation--;
+			rotateCW();
 		}
 	 
-		while (rotation < 0)
-		{
-			rotateCW();
-			rotation++;
-		}
 		// start in the center, just above the grid
 		if (!(this instanceof OShape)) {
 			x = 3;
@@ -182,7 +180,7 @@ public abstract class Shape {
 	}
 	
 	
-	
+	//generate the next 7 shapes
 	public static LinkedQueue<Shape> generate() {
 		LinkedQueue<Shape> upcoming = new LinkedQueue<Shape>();
 		Random rand = new Random();

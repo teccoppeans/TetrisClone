@@ -22,6 +22,7 @@ public class GameGrid {
 		return grid;
 	}
 
+	//draw grid to screen
 	public void draw() {
 		for (int i = ROWS - 1; i > 1; --i) {
 			for (int j = 0; j < COLUMNS; j++) {
@@ -37,6 +38,7 @@ public class GameGrid {
 		}
 	}
 	
+	//merge shape into grid
 	public void embedShape(Shape shape) {
 		int startY = shape.getY();
 		int startX = shape.getX();
@@ -90,7 +92,7 @@ public class GameGrid {
 	}
 
 
-	
+	//returns if the game is lost
 	public boolean isLose() {
 		//check rows 0 and 1 for blocks
 		for (int i = 0; i < 2; ++i) {
