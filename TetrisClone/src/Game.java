@@ -470,6 +470,10 @@ public class Game extends BasicGame {
 				current = hold;
 				hold = temp;
 			}
+			//push piece down
+			while (current.getTop() < 2 && shapeCanFall(tetrisGrid, current)) {
+				++current.y;
+			}
 			heldThisTurn = true;
 		}
 	}
