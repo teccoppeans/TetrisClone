@@ -91,7 +91,8 @@ public abstract class Shape {
 	
 	//adjusts blocks
 	private void shiftBlocksUpLeft() {
-		if (!(this instanceof IShape || this instanceof OShape))
+		if (!(this instanceof IShape || this instanceof OShape 
+				|| this instanceof SShape || this instanceof ZShape))
 		switch (rotation) {
 		case 0 :
 			++y;
@@ -106,11 +107,55 @@ public abstract class Shape {
 			++x;
 			break;
 		}
+		else if (this instanceof SShape || this instanceof ZShape){
+			if (rotation == 1){
+				--y;
+				--x;
+			}
+			else {
+				++y;
+				++x;
+				rotation = 0;
+				blocks = new Block[4][4];
+				if (this instanceof SShape) {
+					for (int i = 1; i < 3; ++i) {
+						blocks[0][i] = new Block(color);
+					}
+					for (int i = 0; i < 2; ++i) {
+						blocks[1][i] = new Block(color);
+					}
+				}
+				else {
+					for (int i = 0; i < 2; ++i) {
+						blocks[0][i] = new Block(color);
+					}
+					for (int i = 1; i < 3; ++i) {
+						blocks[1][i] = new Block(color);
+					}
+				}
+			}
+		}
+		else {
+			if (rotation == 2) {
+				rotation = 0;
+				blocks = new Block[4][4];
+				if (this instanceof IShape) {
+					for (int i = 0; i < 4; ++i) {
+						blocks[1][i] = new Block(color);
+					}
+				}
+			}
+		}
 	}
 	
 	//counterclockwise rotation
 	public void rotateCCW() {
-		for (int i = 0; i < 3; ++i)
+		if (!(this instanceof IShape || this instanceof OShape
+				|| this instanceof SShape || this instanceof ZShape)) {
+			for (int i = 0; i < 3; ++i)
+				rotateCW();
+		}
+		else
 			rotateCW();
 	}
 	
