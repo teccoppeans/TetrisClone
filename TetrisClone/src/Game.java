@@ -229,10 +229,11 @@ public class Game extends BasicGame {
 				paused = true;
 			}
 		}
-		else
+		else if (tetrisGrid.isLose()) {
 			if (kc == Input.KEY_ESCAPE) {
 				restart();
 			}
+		}
 	}
 
 	public boolean shapeCanFall(GameGrid grid, Shape shape) {
