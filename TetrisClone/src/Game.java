@@ -99,8 +99,6 @@ public class Game extends BasicGame {
 					elapsedTime = 0;
 					lineClearedDelay = false;
 				}
-				else
-					elapsedTime += delta;
 			}
 			else if (current == null) {
 				try {
@@ -112,6 +110,9 @@ public class Game extends BasicGame {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				while (current.getTop() < 2 && shapeCanFall(tetrisGrid, current)) {
+					++current.y;
+				}
 			}
 			else {
 				if (elapsedTime > max) {
@@ -121,9 +122,6 @@ public class Game extends BasicGame {
 					if (shapeCanFall(tetrisGrid, current)) {
 						++current.y;
 						++freeFallIterations;
-						if (current.getTop() < 2 && shapeCanFall(tetrisGrid, current)) {
-							++current.y;
-						}
 					}
 					else {
 						tetrisGrid.embedShape(current);
