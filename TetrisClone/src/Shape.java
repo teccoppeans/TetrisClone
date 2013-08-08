@@ -135,7 +135,7 @@ public abstract class Shape {
 				}
 			}
 		}
-		else {
+		else if (this instanceof IShape){
 			if (rotation == 2) {
 				rotation = 0;
 				blocks = new Block[4][4];
